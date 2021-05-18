@@ -8,7 +8,7 @@
 
 #define DELAY_LED_MS 2000
 
-void setup()
+static void setup()
 {
     P15_PushPull_Mode;
 }
