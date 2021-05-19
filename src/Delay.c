@@ -15,7 +15,7 @@
 
 #include "N76E003.h"
 
-char BIT_TMP;
+__bit BIT_TMP;
 
 //-------------------------------------------------------------------------
 void Timer0_Delay100us(UINT32 u32CNT)
