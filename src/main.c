@@ -8,6 +8,22 @@
 
 #define DELAY_LED_MS 2000
 
+// Disable POR - Power on Reset
+unsigned char _sdcc_external_startup(void)  
+{
+    __asm  
+    mov	0xC7, #0xAA  
+    mov	0xC7, #0x55  
+    mov	0xFD, #0x5A  
+    mov	0xC7, #0xAA  
+    mov	0xC7, #0x55  
+    mov	0xFD, #0xA5  
+    __endasm;
+
+    return 0;  
+}
+
+
 static void setup()
 {
     P15_PushPull_Mode;
