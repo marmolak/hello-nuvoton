@@ -6,3 +6,9 @@ https://www.nuvoton.com/products/microcontrollers/8bit-8051-mcus/low-pin-count-8
 
 Result:
 ![alt Nice image](https://raw.githubusercontent.com/marmolak/hello-nuvoton/master/docs/imgs/logic.png)
+
+Other great sources about nuvoton N76E003:
+
+https://github.com/wkaster/N76E003
+
+https://github.com/danchouzhou/N76E003-SDCC
