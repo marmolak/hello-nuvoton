@@ -27,11 +27,19 @@ unsigned char _sdcc_external_startup(void)
 static void setup()
 {
     P15_PushPull_Mode;
+
+    InitialUART0_Timer1(9600);
 }
 
 void main(void)
 {
     setup();
+
+    static const UINT8 *const hello = "Hello world!\n";
+    for (const UINT8 *i = &hello[0]; *i != '\0'; ++i)
+    {
+        Send_Data_To_UART0(*i);
+    }
 
     for (;;)
     {

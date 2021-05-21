@@ -69,7 +69,7 @@ UINT8 Receive_Data_From_UART0(void)
     return (c);
 }
 
-void Send_Data_To_UART0 (UINT8 c)
+void Send_Data_To_UART0(const UINT8 c)
 {
     TI = 0;
     SBUF = c;
