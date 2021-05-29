@@ -48,6 +48,9 @@ void spihw_setup(void)
 
     clr_LSBFE;
 
+    clr_CPOL;
+    clr_CPHA;
+
     // Enable SPI
     set_SPIEN;
 
@@ -57,24 +60,47 @@ void spihw_setup(void)
 
     spi_transfer(OP_DECODEMODE, 0);
 
-    spi_transfer(OP_INTENSITY, 12);
+    spi_transfer(OP_INTENSITY, 3);
 
-    spi_transfer(OP_SHUTDOWN, 1);
+    // cleanup
+    for (unsigned char p = 1; p < 9; ++p)
+    {
+        spi_transfer(p, 0x00);
+    }
+
+    // start in shutdown mode
+    spi_transfer(OP_SHUTDOWN, 0);
 }
 
 void spihw_demo(void)
 {
+    spi_transfer(OP_SHUTDOWN, 1);
+
     for (unsigned char i = 0; i < 10; ++i)
     {
+        const unsigned char c = char_table[i];
+
         for (unsigned char p = 1; p < 9; ++p)
         {
-            spi_transfer(p, char_table[i]);
+            spi_transfer(p, c);
         }
+
+        // spi_transfer(OP_SHUTDOWN, 1);
+        Timer0_Delay1ms(1000);
+    }
+
+    Timer0_Delay1ms(1000);
+
+    for (unsigned char p = 8; p > ; --p)
+    {
+        const unsigned char c = char_table[p+1];
+        spi_transfer(p, c);
+
         Timer0_Delay1ms(1000);
     }
 }
 
-static inline void _spi_send_byte(const unsigned char byte)
+static inline void _spi_send_byte(const volatile unsigned char byte)
 {
     clr_SPIF;
     SPDR = byte;
@@ -82,7 +108,7 @@ static inline void _spi_send_byte(const unsigned char byte)
     clr_SPIF;
 }
 
-static void spi_transfer(const unsigned char opcode, const unsigned char data)
+static void spi_transfer(const volatile unsigned char opcode, const volatile unsigned char data)
 {
     // 16-bit packet so we drive CS manually
     clr_P15;

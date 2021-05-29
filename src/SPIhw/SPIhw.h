@@ -6,6 +6,6 @@ void spihw_setup(void);
 void spihw_demo(void);
 
 // private
-static void spi_transfer(const unsigned char opcode, const unsigned char data);
+static void spi_transfer(const volatile unsigned char opcode, const volatile unsigned char data);
 
 #endif
