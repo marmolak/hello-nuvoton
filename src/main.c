@@ -1,5 +1,7 @@
 #include "N76E003.h"
 
+#include "SPIhw/SPIhw.h"
+
 /*
     Basic blink program which can be used as a hello world for nuvoton N76E003 dev board.
     Some header files has been ported to sdcc from KEIL or similar strange C compiler.
@@ -26,7 +28,10 @@ unsigned char _sdcc_external_startup(void)
 
 static void setup()
 {
-    P15_PushPull_Mode;
+    // for logic analyzer
+    P12_PushPull_Mode;
+
+    spihw_setup();
 
     InitialUART0_Timer1(9600);
 }
@@ -43,9 +48,11 @@ void main(void)
 
     for (;;)
     {
-        set_P15;
+        set_P12;
         Timer0_Delay1ms(DELAY_LED_MS);
-        clr_P15;
-        Timer0_Delay1ms(DELAY_LED_MS);   
+        clr_P12;
+        Timer0_Delay1ms(DELAY_LED_MS);
+
+        spihw_demo();
     }
 }
