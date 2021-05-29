@@ -57,7 +57,7 @@ void spihw_setup(void)
 
     spi_transfer(OP_DECODEMODE, 0);
 
-    spi_transfer(OP_INTENSITY, 7);
+    spi_transfer(OP_INTENSITY, 12);
 
     spi_transfer(OP_SHUTDOWN, 1);
 }
