@@ -27,6 +27,10 @@ void spihw_setup(void)
 {
     // SS/CS 
     P15_Quasi_Mode;
+    // release P15 - manually driving
+    set_DISMODF;
+    clr_SSOE;
+    set_P15;
 
     // MOSI
     P00_Quasi_Mode;
@@ -35,12 +39,6 @@ void spihw_setup(void)
     P10_Quasi_Mode;
 
     set_MSTR;
-
-    // release P15 - manually driving
-    set_DISMODF;
-    clr_SSOE;
-    set_P15;
-
 
     // 1MB/s
     set_SPR1;
@@ -53,6 +51,11 @@ void spihw_setup(void)
 
     // Enable SPI
     set_SPIEN;
+
+    // Seems like kind of workaround, otherwise some strange things happen with display.
+    // Strange things: only last digit is initialized with high brightness.
+    // 100 ms seems to work without any issue.
+    Timer0_Delay1ms(100);
 
     spi_transfer(OP_DISPLAYTEST, 0);
 
@@ -91,7 +94,7 @@ void spihw_demo(void)
 
     Timer0_Delay1ms(1000);
 
-    for (unsigned char p = 8; p > ; --p)
+    for (unsigned char p = 8; p > 0; --p)
     {
         const unsigned char c = char_table[p+1];
         spi_transfer(p, c);
