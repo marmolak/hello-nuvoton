@@ -107,6 +107,7 @@ static inline void _spi_send_byte(const volatile unsigned char byte)
 {
     clr_SPIF;
     SPDR = byte;
+    // Basically: wait for SPIF
     while((SPSR & SET_BIT7) != SET_BIT7);
     clr_SPIF;
 }
