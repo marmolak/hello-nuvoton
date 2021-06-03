@@ -14,3 +14,5 @@ https://github.com/wkaster/N76E003
 https://github.com/danchouzhou/N76E003-SDCC
 
 https://github.com/nekromant/lctech-relay-altfw/tree/master/include/nuvoton
+
+http://vidieukhien.org/category/8051/n76e003at20 - in Vietnamese but google translator works and examples are great.
