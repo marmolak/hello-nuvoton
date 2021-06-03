@@ -31,9 +31,10 @@ static void setup()
     // for logic analyzer
     P12_PushPull_Mode;
 
+    InitialUART0_Timer1(9600);
+
     spihw_setup();
 
-    InitialUART0_Timer1(9600);
 }
 
 void main(void)
@@ -48,11 +49,12 @@ void main(void)
 
     for (;;)
     {
+        spihw_demo();
+
         set_P12;
         Timer0_Delay1ms(DELAY_LED_MS);
         clr_P12;
         Timer0_Delay1ms(DELAY_LED_MS);
 
-        spihw_demo();
     }
 }

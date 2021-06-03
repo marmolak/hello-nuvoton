@@ -38,6 +38,7 @@ void spihw_setup(void)
     // SPCLK
     P10_Quasi_Mode;
 
+    // SPI master mode
     set_MSTR;
 
     // 1MB/s
@@ -55,7 +56,7 @@ void spihw_setup(void)
     // Seems like kind of workaround, otherwise some strange things happen with display.
     // Strange things: only last digit is initialized with high brightness.
     // 100 ms seems to work without any issue.
-    Timer0_Delay1ms(100);
+    Timer0_Delay1ms(200);
 
     spi_transfer(OP_DISPLAYTEST, 0);
 
@@ -88,7 +89,6 @@ void spihw_demo(void)
             spi_transfer(p, c);
         }
 
-        // spi_transfer(OP_SHUTDOWN, 1);
         Timer0_Delay1ms(1000);
     }
 
